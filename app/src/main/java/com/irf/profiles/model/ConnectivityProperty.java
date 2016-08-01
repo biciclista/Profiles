@@ -1,5 +1,11 @@
 package com.irf.profiles.model;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.wifi.WifiManager;
+import android.util.Log;
+
 import com.irf.profiles.data.ConnectivityPropertyDao;
 import com.irf.profiles.data.DaoSession;
 
@@ -7,6 +13,7 @@ import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * Represent a connectivity property in a profile. A ConnectivityProperty can represent four types
@@ -48,34 +55,33 @@ public class ConnectivityProperty {
     // TAG for logging.
     private transient static final String TAG = ConnectivityProperty.class.getSimpleName();
 
+    // Unique identifier.
     @Id(autoincrement = true)
-    private Long id;
-    private Long profileId;
-    private int connectivityType;
+    private Long mId;
+    // Profile identifier.
+    @NotNull
+    private Long mProfileId;
+    // Type of connectivity property.
+    private int mConnectivityType;
     // Value of the property.
-    private boolean value;
+    private boolean mEnabled;
     // Indicates if the property has to be applied in the profile.
-    private boolean active;
-
-    /**
-     * Used for active entity operations.
-     */
+    private boolean mActive;
+    /** Used for active entity operations. */
     @Generated(hash = 79083208)
     private transient ConnectivityPropertyDao myDao;
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 411702528)
-    public ConnectivityProperty(Long id, Long profileId, int connectivityType, boolean value,
-                                boolean active) {
-        this.id = id;
-        this.profileId = profileId;
-        this.connectivityType = connectivityType;
-        this.value = value;
-        this.active = active;
+    @Generated(hash = 1927822148)
+    public ConnectivityProperty(Long mId, @NotNull Long mProfileId, int mConnectivityType,
+            boolean mEnabled, boolean mActive) {
+        this.mId = mId;
+        this.mProfileId = mProfileId;
+        this.mConnectivityType = mConnectivityType;
+        this.mEnabled = mEnabled;
+        this.mActive = mActive;
     }
 
     @Generated(hash = 179088954)
@@ -85,12 +91,72 @@ public class ConnectivityProperty {
     @Override
     public String toString() {
         return "ConnectivityProperty{" +
-                "id=" + id +
-                ", profileId=" + profileId +
-                ", connectivityType=" + connectivityType +
-                ", active=" + active +
-                ", value=" + value +
+                "id=" + mId +
+                ", profileId=" + mProfileId +
+                ", connectivityType=" + mConnectivityType +
+                ", active=" + mActive +
+                ", enabled=" + mEnabled +
                 '}';
+    }
+
+    public void apply(Context pContext) {
+        if (mActive) {
+            boolean actuallyEnabled;
+
+            switch (getMConnectivityType()) {
+                case CONN_TYPE_BLUETOOTH:
+                    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                    if (bluetoothAdapter != null) {
+                        // Get actual state.
+                        int state = bluetoothAdapter.getState();
+                        if (state == BluetoothAdapter.STATE_OFF || state == BluetoothAdapter
+                                .STATE_TURNING_OFF) {
+                            if (mEnabled) {
+                                // If state is off and property is on, enable it.
+                                Log.d(TAG, "Applying connectivity property: enabling BLUETOOTH");
+                                bluetoothAdapter.enable();
+                            }
+                        } else if (state == BluetoothAdapter.STATE_ON || state ==
+                                BluetoothAdapter.STATE_TURNING_ON) {
+                            if (!mEnabled) {
+                                // If state is on and property is off, disable it.
+                                Log.d(TAG, "Applying connectivity property: disabling BLUETOOTH");
+                                bluetoothAdapter.disable();
+                            }
+                        }
+                    }
+                    break;
+                case CONN_TYPE_WiFi:
+                    WifiManager wifiManager = (WifiManager) pContext.getSystemService(Context
+                            .WIFI_SERVICE);
+                    actuallyEnabled = wifiManager.isWifiEnabled();
+                    if(actuallyEnabled != mEnabled){
+                        Log.d(TAG, "Applying connectivity property WiFi: " + mEnabled);
+                        wifiManager.setWifiEnabled(mEnabled);
+                    }
+                    /*if (!enabled && actuallyEnabled) {
+                        // If state is on and property is off, disable it.
+                        Log.d(TAG, "Applying connectivity property: disabling WiFi");
+                        wifiManager.setWifiEnabled(false);
+                    } else if (enabled && !actuallyEnabled) {
+                        // If state is off and property is on, enable it.
+                        Log.d(TAG, "Applying connectivity property: enabling WiFi");
+                        wifiManager.setWifiEnabled(true);
+                    }*/
+                    break;
+                case CONN_TYPE_SYNC:
+                    actuallyEnabled = ContentResolver.getMasterSyncAutomatically();
+                    if (actuallyEnabled != mEnabled) {
+                        // If property is different than actual state, change it.
+                        Log.d(TAG, "Applying connectivity property: Sync=" + mEnabled);
+                        ContentResolver.setMasterSyncAutomatically(mEnabled);
+                    }
+                    break;
+                case CONN_TYPE_NFC:
+
+                    break;
+            }
+        }
     }
 
     /**
@@ -129,52 +195,50 @@ public class ConnectivityProperty {
         myDao.delete(this);
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 459958677)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getConnectivityPropertyDao() : null;
     }
 
-    public boolean getActive() {
-        return this.active;
+    public boolean getMActive() {
+        return this.mActive;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setMActive(boolean mActive) {
+        this.mActive = mActive;
     }
 
-    public boolean getValue() {
-        return this.value;
+    public boolean getMEnabled() {
+        return this.mEnabled;
     }
 
-    public void setValue(boolean value) {
-        this.value = value;
+    public void setMEnabled(boolean mEnabled) {
+        this.mEnabled = mEnabled;
     }
 
-    public int getConnectivityType() {
-        return this.connectivityType;
+    public int getMConnectivityType() {
+        return this.mConnectivityType;
     }
 
-    public void setConnectivityType(int connectivityType) {
-        this.connectivityType = connectivityType;
+    public void setMConnectivityType(int mConnectivityType) {
+        this.mConnectivityType = mConnectivityType;
     }
 
-    public Long getProfileId() {
-        return this.profileId;
+    public Long getMProfileId() {
+        return this.mProfileId;
     }
 
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
+    public void setMProfileId(Long mProfileId) {
+        this.mProfileId = mProfileId;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getMId() {
+        return this.mId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMId(Long mId) {
+        this.mId = mId;
     }
 }

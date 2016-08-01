@@ -27,36 +27,32 @@ public class Profile {
     private transient static final String TAG = Profile.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private Long id;
+    private Long mId;
     @NotNull
-    private String name;
-    // Indicates if this is the active profile.
-    private boolean active;
+    private String mName;
+    // Indicates if this is the mActive profile.
+    private boolean mActive;
 
     // Volume properties.
-    @ToMany(referencedJoinProperty = "profileId")
-    private List<VolumeProperty> volumeProperties;
+    @ToMany(referencedJoinProperty = "mProfileId")
+    private List<VolumeProperty> mVolumeProperties;
     // Connectivity properties.
-    @ToMany(referencedJoinProperty = "profileId")
-    private List<ConnectivityProperty> connectivityProperties;
+    @ToMany(referencedJoinProperty = "mProfileId")
+    private List<ConnectivityProperty> mConnectivityProperties;
 
-    /**
-     * Used for active entity operations.
-     */
+    /** Used for active entity operations. */
     @Generated(hash = 89320040)
     private transient ProfileDao myDao;
 
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 754527121)
-    public Profile(Long id, @NotNull String name, boolean active) {
-        this.id = id;
-        this.name = name;
-        this.active = active;
+    @Generated(hash = 721195061)
+    public Profile(Long mId, @NotNull String mName, boolean mActive) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mActive = mActive;
     }
 
     @Generated(hash = 782787822)
@@ -66,9 +62,9 @@ public class Profile {
     @Override
     public String toString() {
         return "Profile{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", active=" + active +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                ", mActive=" + mActive +
                 '}';
     }
 
@@ -108,96 +104,90 @@ public class Profile {
         myDao.delete(this);
     }
 
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
-    @Generated(hash = 1626178392)
-    public synchronized void resetConnectivityProperties() {
-        connectivityProperties = null;
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 2107583252)
+    public synchronized void resetMConnectivityProperties() {
+        mConnectivityProperties = null;
     }
 
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 1212321456)
-    public List<ConnectivityProperty> getConnectivityProperties() {
-        if (connectivityProperties == null) {
+    @Generated(hash = 395527603)
+    public List<ConnectivityProperty> getMConnectivityProperties() {
+        if (mConnectivityProperties == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             ConnectivityPropertyDao targetDao = daoSession.getConnectivityPropertyDao();
-            List<ConnectivityProperty> connectivityPropertiesNew = targetDao._queryProfile_ConnectivityProperties(id);
+            List<ConnectivityProperty> mConnectivityPropertiesNew = targetDao._queryProfile_MConnectivityProperties(mId);
             synchronized (this) {
-                if (connectivityProperties == null) {
-                    connectivityProperties = connectivityPropertiesNew;
+                if(mConnectivityProperties == null) {
+                    mConnectivityProperties = mConnectivityPropertiesNew;
                 }
             }
         }
-        return connectivityProperties;
+        return mConnectivityProperties;
     }
 
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
-    @Generated(hash = 840957922)
-    public synchronized void resetVolumeProperties() {
-        volumeProperties = null;
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 2110984013)
+    public synchronized void resetMVolumeProperties() {
+        mVolumeProperties = null;
     }
 
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 1863447518)
-    public List<VolumeProperty> getVolumeProperties() {
-        if (volumeProperties == null) {
+    @Generated(hash = 1764681641)
+    public List<VolumeProperty> getMVolumeProperties() {
+        if (mVolumeProperties == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             VolumePropertyDao targetDao = daoSession.getVolumePropertyDao();
-            List<VolumeProperty> volumePropertiesNew = targetDao._queryProfile_VolumeProperties(id);
+            List<VolumeProperty> mVolumePropertiesNew = targetDao._queryProfile_MVolumeProperties(mId);
             synchronized (this) {
-                if (volumeProperties == null) {
-                    volumeProperties = volumePropertiesNew;
+                if(mVolumeProperties == null) {
+                    mVolumeProperties = mVolumePropertiesNew;
                 }
             }
         }
-        return volumeProperties;
+        return mVolumeProperties;
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1351849779)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getProfileDao() : null;
     }
 
-    public boolean getActive() {
-        return this.active;
+    public boolean getMActive() {
+        return this.mActive;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setMActive(boolean mActive) {
+        this.mActive = mActive;
     }
 
-    public String getName() {
-        return this.name;
+    public String getMName() {
+        return this.mName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMName(String mName) {
+        this.mName = mName;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getMId() {
+        return this.mId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMId(Long mId) {
+        this.mId = mId;
     }
 }

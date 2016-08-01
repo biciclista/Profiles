@@ -44,14 +44,13 @@ public class VolumeProperty {
     private transient static final String TAG = VolumeProperty.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private Long id;
-    private Long profileId;
-    private int volumeType;
+    private Long mId;
+    private Long mProfileId;
+    private int mVolumeType;
     // Value of the property.
-    private int value;
+    private int mValue;
     // Indicates if the property has to be applied in the profile.
-    private boolean active;
-
+    private boolean mActive;
     /**
      * Used for active entity operations.
      */
@@ -63,13 +62,13 @@ public class VolumeProperty {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 1619574964)
-    public VolumeProperty(Long id, Long profileId, int volumeType, int value, boolean active) {
-        this.id = id;
-        this.profileId = profileId;
-        this.volumeType = volumeType;
-        this.value = value;
-        this.active = active;
+    @Generated(hash = 966976997)
+    public VolumeProperty(Long mId, Long mProfileId, int mVolumeType, int mValue, boolean mActive) {
+        this.mId = mId;
+        this.mProfileId = mProfileId;
+        this.mVolumeType = mVolumeType;
+        this.mValue = mValue;
+        this.mActive = mActive;
     }
 
     @Generated(hash = 1134627104)
@@ -79,25 +78,25 @@ public class VolumeProperty {
     @Override
     public String toString() {
         return "VolumeProperty{" +
-                "id=" + id +
-                ", profileId=" + profileId +
-                ", volumeType=" + volumeType +
-                ", active=" + active +
-                ", value=" + value +
+                "mId=" + mId +
+                ", mProfileId=" + mProfileId +
+                ", mVolumeType=" + mVolumeType +
+                ", mActive=" + mActive +
+                ", mValue=" + mValue +
                 '}';
     }
 
     /**
-     * Applies the property. If property is active, sets the volume to value.
+     * Applies the property. If property is mActive, sets the volume to mValue.
      *
      * @param pContext Android context.
      */
     public void apply(Context pContext) {
-        if (getActive()) {
+        if (mActive) {
             AudioManager audioManager = (AudioManager) pContext.getSystemService(Context
                     .AUDIO_SERVICE);
-            Log.d(TAG, "Applying volume to stream (" + getVolumeType() + ") to " + getValue());
-            audioManager.setStreamVolume(getVolumeType(), getValue(), 0);
+            Log.d(TAG, "Applying volume to stream (" + mActive + ") to " + mValue);
+            audioManager.setStreamVolume(mVolumeType, mValue, 0);
         }
     }
 
@@ -146,43 +145,44 @@ public class VolumeProperty {
         myDao = daoSession != null ? daoSession.getVolumePropertyDao() : null;
     }
 
-    public boolean getActive() {
-        return this.active;
+    public boolean getMActive() {
+        return this.mActive;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setMActive(boolean mActive) {
+        this.mActive = mActive;
     }
 
-    public int getValue() {
-        return this.value;
+    public int getMValue() {
+        return this.mValue;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setMValue(int mValue) {
+        this.mValue = mValue;
     }
 
-    public int getVolumeType() {
-        return this.volumeType;
+    public int getMVolumeType() {
+        return this.mVolumeType;
     }
 
-    public void setVolumeType(int volumeType) {
-        this.volumeType = volumeType;
+    public void setMVolumeType(int mVolumeType) {
+        this.mVolumeType = mVolumeType;
     }
 
-    public Long getProfileId() {
-        return this.profileId;
+    public Long getMProfileId() {
+        return this.mProfileId;
     }
 
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
+    public void setMProfileId(Long mProfileId) {
+        this.mProfileId = mProfileId;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getMId() {
+        return this.mId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMId(Long mId) {
+        this.mId = mId;
     }
+
 }

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class VolumePropertyTest {
+public class ConnectivityPropertyTest {
     Context mContext;
     AudioManager mAudioManager;
 
