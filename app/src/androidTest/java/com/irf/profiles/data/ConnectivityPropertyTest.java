@@ -16,7 +16,7 @@ public class ConnectivityPropertyTest extends AbstractDaoTestLongPk<Connectivity
         ConnectivityProperty entity = new ConnectivityProperty();
         entity.setId(key);
         //entity.setId();
-        entity.setProfileId(1);
+        entity.setProfileId(1L);
         entity.setConnectivityType(1);
         entity.setValue(true);
         entity.setActive(false);

@@ -1,12 +1,16 @@
 package com.irf.profiles.model;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
+import android.content.Context;
+import android.media.AudioManager;
+import android.util.Log;
 
 import com.irf.profiles.data.DaoSession;
 import com.irf.profiles.data.VolumePropertyDao;
+
+import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * Represent a volume property in a profile. A VolumeProperty can represent four types of volume:
@@ -19,17 +23,35 @@ import com.irf.profiles.data.VolumePropertyDao;
  */
 @Entity(active = true)
 public class VolumeProperty {
+    /**
+     * Ring volume subtype of volume property.
+     */
+    public transient static final int VOL_RING = AudioManager.STREAM_RING;
+    /**
+     * Notification volume subtype of volume property.
+     */
+    public transient static final int VOL_NOTIFICATION = AudioManager.STREAM_NOTIFICATION;
+    /**
+     * Alarm volume subtype of volume property.
+     */
+    public transient static final int VOL_ALARM = AudioManager.STREAM_ALARM;
+    /**
+     * Multimedia volume subtype of volume property.
+     */
+    public transient static final int VOL_MEDIA = AudioManager.STREAM_MUSIC;
+
     // TAG for logging.
     private transient static final String TAG = VolumeProperty.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private long id;
-    private long profileId;
+    private Long id;
+    private Long profileId;
     private int volumeType;
     // Value of the property.
     private int value;
     // Indicates if the property has to be applied in the profile.
     private boolean active;
+
     /**
      * Used for active entity operations.
      */
@@ -41,8 +63,8 @@ public class VolumeProperty {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 444926219)
-    public VolumeProperty(long id, long profileId, int volumeType, int value, boolean active) {
+    @Generated(hash = 1619574964)
+    public VolumeProperty(Long id, Long profileId, int volumeType, int value, boolean active) {
         this.id = id;
         this.profileId = profileId;
         this.volumeType = volumeType;
@@ -52,6 +74,31 @@ public class VolumeProperty {
 
     @Generated(hash = 1134627104)
     public VolumeProperty() {
+    }
+
+    @Override
+    public String toString() {
+        return "VolumeProperty{" +
+                "id=" + id +
+                ", profileId=" + profileId +
+                ", volumeType=" + volumeType +
+                ", active=" + active +
+                ", value=" + value +
+                '}';
+    }
+
+    /**
+     * Applies the property. If property is active, sets the volume to value.
+     *
+     * @param pContext Android context.
+     */
+    public void apply(Context pContext) {
+        if (getActive()) {
+            AudioManager audioManager = (AudioManager) pContext.getSystemService(Context
+                    .AUDIO_SERVICE);
+            Log.d(TAG, "Applying volume to stream (" + getVolumeType() + ") to " + getValue());
+            audioManager.setStreamVolume(getVolumeType(), getValue(), 0);
+        }
     }
 
     /**
@@ -99,6 +146,14 @@ public class VolumeProperty {
         myDao = daoSession != null ? daoSession.getVolumePropertyDao() : null;
     }
 
+    public boolean getActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public int getValue() {
         return this.value;
     }
@@ -115,38 +170,19 @@ public class VolumeProperty {
         this.volumeType = volumeType;
     }
 
-    public long getProfileId() {
+    public Long getProfileId() {
         return this.profileId;
     }
 
-    public void setProfileId(long profileId) {
+    public void setProfileId(Long profileId) {
         this.profileId = profileId;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public boolean getActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    @Override
-    public String toString() {
-        return "VolumeProperty{" +
-                "id=" + id +
-                ", profileId=" + profileId +
-                ", volumeType=" + volumeType +
-                ", active=" + active +
-                ", value=" + value +
-                '}';
     }
 }

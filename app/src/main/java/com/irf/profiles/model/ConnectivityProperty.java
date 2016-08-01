@@ -1,14 +1,12 @@
 package com.irf.profiles.model;
 
+import com.irf.profiles.data.ConnectivityPropertyDao;
 import com.irf.profiles.data.DaoSession;
-import com.irf.profiles.data.VolumePropertyDao;
 
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-
-import com.irf.profiles.data.ConnectivityPropertyDao;
 
 /**
  * Represent a connectivity property in a profile. A ConnectivityProperty can represent four types
@@ -51,8 +49,8 @@ public class ConnectivityProperty {
     private transient static final String TAG = ConnectivityProperty.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private long id;
-    private long profileId;
+    private Long id;
+    private Long profileId;
     private int connectivityType;
     // Value of the property.
     private boolean value;
@@ -70,8 +68,8 @@ public class ConnectivityProperty {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 1703594866)
-    public ConnectivityProperty(long id, long profileId, int connectivityType, boolean value,
+    @Generated(hash = 411702528)
+    public ConnectivityProperty(Long id, Long profileId, int connectivityType, boolean value,
                                 boolean active) {
         this.id = id;
         this.profileId = profileId;
@@ -82,6 +80,17 @@ public class ConnectivityProperty {
 
     @Generated(hash = 179088954)
     public ConnectivityProperty() {
+    }
+
+    @Override
+    public String toString() {
+        return "ConnectivityProperty{" +
+                "id=" + id +
+                ", profileId=" + profileId +
+                ", connectivityType=" + connectivityType +
+                ", active=" + active +
+                ", value=" + value +
+                '}';
     }
 
     /**
@@ -153,30 +162,19 @@ public class ConnectivityProperty {
         this.connectivityType = connectivityType;
     }
 
-    public long getProfileId() {
+    public Long getProfileId() {
         return this.profileId;
     }
 
-    public void setProfileId(long profileId) {
+    public void setProfileId(Long profileId) {
         this.profileId = profileId;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "ConnectivityProperty{" +
-                "id=" + id +
-                ", profileId=" + profileId +
-                ", connectivityType=" + connectivityType +
-                ", active=" + active +
-                ", value=" + value +
-                '}';
     }
 }

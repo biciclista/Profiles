@@ -1,9 +1,8 @@
 package com.irf.profiles.data;
 
-import org.greenrobot.greendao.test.AbstractDaoTestLongPk;
-
 import com.irf.profiles.model.VolumeProperty;
-import com.irf.profiles.data.VolumePropertyDao;
+
+import org.greenrobot.greendao.test.AbstractDaoTestLongPk;
 
 public class VolumePropertyTest extends AbstractDaoTestLongPk<VolumePropertyDao, VolumeProperty> {
 
@@ -16,7 +15,7 @@ public class VolumePropertyTest extends AbstractDaoTestLongPk<VolumePropertyDao,
         VolumeProperty entity = new VolumeProperty();
         entity.setId(key);
         //entity.setId();
-        entity.setProfileId(1);
+        entity.setProfileId(1L);
         entity.setVolumeType(1);
         entity.setValue(1);
         entity.setActive(false);
