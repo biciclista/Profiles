@@ -2,6 +2,7 @@ package com.irf.profiles.model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.ToMany;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class Profile {
     private transient static final String TAG = Profile.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
+    @NotNull
     private String name;
     // Indicates if this is the active profile.
     private boolean active;
@@ -39,19 +41,16 @@ public class Profile {
     @ToMany(referencedJoinProperty = "profileId")
     private List<ConnectivityProperty> connectivityProperties;
 
-    /**
-     * Used for active entity operations.
-     */
+    /** Used for active entity operations. */
     @Generated(hash = 89320040)
     private transient ProfileDao myDao;
-    /**
-     * Used to resolve relations
-     */
+
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 213188156)
-    public Profile(long id, String name, boolean active) {
+    @Generated(hash = 754527121)
+    public Profile(Long id, @NotNull String name, boolean active) {
         this.id = id;
         this.name = name;
         this.active = active;
@@ -59,6 +58,15 @@ public class Profile {
 
     @Generated(hash = 782787822)
     public Profile() {
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
+                '}';
     }
 
     /**
@@ -97,9 +105,7 @@ public class Profile {
         myDao.delete(this);
     }
 
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
     @Generated(hash = 1626178392)
     public synchronized void resetConnectivityProperties() {
         connectivityProperties = null;
@@ -119,7 +125,7 @@ public class Profile {
             ConnectivityPropertyDao targetDao = daoSession.getConnectivityPropertyDao();
             List<ConnectivityProperty> connectivityPropertiesNew = targetDao._queryProfile_ConnectivityProperties(id);
             synchronized (this) {
-                if (connectivityProperties == null) {
+                if(connectivityProperties == null) {
                     connectivityProperties = connectivityPropertiesNew;
                 }
             }
@@ -127,9 +133,7 @@ public class Profile {
         return connectivityProperties;
     }
 
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
     @Generated(hash = 840957922)
     public synchronized void resetVolumeProperties() {
         volumeProperties = null;
@@ -149,7 +153,7 @@ public class Profile {
             VolumePropertyDao targetDao = daoSession.getVolumePropertyDao();
             List<VolumeProperty> volumePropertiesNew = targetDao._queryProfile_VolumeProperties(id);
             synchronized (this) {
-                if (volumeProperties == null) {
+                if(volumeProperties == null) {
                     volumeProperties = volumePropertiesNew;
                 }
             }
@@ -157,9 +161,7 @@ public class Profile {
         return volumeProperties;
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1351849779)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
@@ -182,20 +184,11 @@ public class Profile {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", active=" + active +
-                '}';
     }
 }
