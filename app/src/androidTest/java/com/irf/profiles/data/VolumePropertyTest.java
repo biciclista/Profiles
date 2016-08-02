@@ -14,10 +14,11 @@ public class VolumePropertyTest extends AbstractDaoTestLongPk<VolumePropertyDao,
     @Override
     protected VolumeProperty createEntity(Long key) {
         VolumeProperty entity = new VolumeProperty();
-        entity.setMId(key);
-        entity.setMVolumeType(1);
-        entity.setMValue(0);
-        entity.setMActive(false);
+        entity.setId(key);
+        entity.setProfileId(1L);
+        entity.setType(1);
+        entity.setValue(0);
+        entity.setActive(false);
         return entity;
     }
 

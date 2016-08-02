@@ -14,11 +14,11 @@ public class ConnectivityPropertyTest extends AbstractDaoTestLongPk<Connectivity
     @Override
     protected ConnectivityProperty createEntity(Long key) {
         ConnectivityProperty entity = new ConnectivityProperty();
-        entity.setMId(key);
-        entity.setMProfileId(1L);
-        entity.setMConnectivityType(1);
-        entity.setMEnabled(true);
-        entity.setMActive(false);
+        entity.setId(key);
+        entity.setProfileId(1L);
+        entity.setType(1);
+        entity.setEnabled(false);
+        entity.setActive(false);
         return entity;
     }
 

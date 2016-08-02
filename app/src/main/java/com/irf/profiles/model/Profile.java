@@ -27,18 +27,18 @@ public class Profile {
     private transient static final String TAG = Profile.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private Long mId;
+    private Long id;
     @NotNull
-    private String mName;
-    // Indicates if this is the mActive profile.
-    private boolean mActive;
+    private String name;
+    // Indicates if this is the active profile.
+    private boolean active;
 
     // Volume properties.
-    @ToMany(referencedJoinProperty = "mProfileId")
-    private List<VolumeProperty> mVolumeProperties;
+    @ToMany(referencedJoinProperty = "profileId")
+    private List<VolumeProperty> volumeProperties;
     // Connectivity properties.
-    @ToMany(referencedJoinProperty = "mProfileId")
-    private List<ConnectivityProperty> mConnectivityProperties;
+    @ToMany(referencedJoinProperty = "profileId")
+    private List<ConnectivityProperty> connectivityProperties;
 
     /** Used for active entity operations. */
     @Generated(hash = 89320040)
@@ -48,11 +48,11 @@ public class Profile {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 721195061)
-    public Profile(Long mId, @NotNull String mName, boolean mActive) {
-        this.mId = mId;
-        this.mName = mName;
-        this.mActive = mActive;
+    @Generated(hash = 754527121)
+    public Profile(Long id, @NotNull String name, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
     }
 
     @Generated(hash = 782787822)
@@ -62,9 +62,9 @@ public class Profile {
     @Override
     public String toString() {
         return "Profile{" +
-                "mId=" + mId +
-                ", mName='" + mName + '\'' +
-                ", mActive=" + mActive +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
                 '}';
     }
 
@@ -105,59 +105,59 @@ public class Profile {
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 2107583252)
-    public synchronized void resetMConnectivityProperties() {
-        mConnectivityProperties = null;
+    @Generated(hash = 1626178392)
+    public synchronized void resetConnectivityProperties() {
+        connectivityProperties = null;
     }
 
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 395527603)
-    public List<ConnectivityProperty> getMConnectivityProperties() {
-        if (mConnectivityProperties == null) {
+    @Generated(hash = 1212321456)
+    public List<ConnectivityProperty> getConnectivityProperties() {
+        if (connectivityProperties == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             ConnectivityPropertyDao targetDao = daoSession.getConnectivityPropertyDao();
-            List<ConnectivityProperty> mConnectivityPropertiesNew = targetDao._queryProfile_MConnectivityProperties(mId);
+            List<ConnectivityProperty> connectivityPropertiesNew = targetDao._queryProfile_ConnectivityProperties(id);
             synchronized (this) {
-                if(mConnectivityProperties == null) {
-                    mConnectivityProperties = mConnectivityPropertiesNew;
+                if(connectivityProperties == null) {
+                    connectivityProperties = connectivityPropertiesNew;
                 }
             }
         }
-        return mConnectivityProperties;
+        return connectivityProperties;
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 2110984013)
-    public synchronized void resetMVolumeProperties() {
-        mVolumeProperties = null;
+    @Generated(hash = 840957922)
+    public synchronized void resetVolumeProperties() {
+        volumeProperties = null;
     }
 
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
      */
-    @Generated(hash = 1764681641)
-    public List<VolumeProperty> getMVolumeProperties() {
-        if (mVolumeProperties == null) {
+    @Generated(hash = 1863447518)
+    public List<VolumeProperty> getVolumeProperties() {
+        if (volumeProperties == null) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             VolumePropertyDao targetDao = daoSession.getVolumePropertyDao();
-            List<VolumeProperty> mVolumePropertiesNew = targetDao._queryProfile_MVolumeProperties(mId);
+            List<VolumeProperty> volumePropertiesNew = targetDao._queryProfile_VolumeProperties(id);
             synchronized (this) {
-                if(mVolumeProperties == null) {
-                    mVolumeProperties = mVolumePropertiesNew;
+                if(volumeProperties == null) {
+                    volumeProperties = volumePropertiesNew;
                 }
             }
         }
-        return mVolumeProperties;
+        return volumeProperties;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -167,27 +167,28 @@ public class Profile {
         myDao = daoSession != null ? daoSession.getProfileDao() : null;
     }
 
-    public boolean getMActive() {
-        return this.mActive;
+    public boolean getActive() {
+        return this.active;
     }
 
-    public void setMActive(boolean mActive) {
-        this.mActive = mActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public String getMName() {
-        return this.mName;
+    public String getName() {
+        return this.name;
     }
 
-    public void setMName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getMId() {
-        return this.mId;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setMId(Long mId) {
-        this.mId = mId;
+    public void setId(Long id) {
+        this.id = id;
     }
+
 }

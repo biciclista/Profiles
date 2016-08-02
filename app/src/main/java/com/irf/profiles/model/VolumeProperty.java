@@ -4,13 +4,13 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.util.Log;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
 import com.irf.profiles.data.DaoSession;
 import com.irf.profiles.data.VolumePropertyDao;
-
-import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
 
 /**
  * Represent a volume property in a profile. A VolumeProperty can represent four types of volume:
@@ -44,31 +44,28 @@ public class VolumeProperty {
     private transient static final String TAG = VolumeProperty.class.getSimpleName();
 
     @Id(autoincrement = true)
-    private Long mId;
-    private Long mProfileId;
-    private int mVolumeType;
+    private Long id;
+    @NotNull
+    private Long profileId;
+    private int type;
     // Value of the property.
-    private int mValue;
+    private int value;
     // Indicates if the property has to be applied in the profile.
-    private boolean mActive;
-    /**
-     * Used for active entity operations.
-     */
+    private boolean active;
+    /** Used for active entity operations. */
     @Generated(hash = 1995043586)
     private transient VolumePropertyDao myDao;
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 966976997)
-    public VolumeProperty(Long mId, Long mProfileId, int mVolumeType, int mValue, boolean mActive) {
-        this.mId = mId;
-        this.mProfileId = mProfileId;
-        this.mVolumeType = mVolumeType;
-        this.mValue = mValue;
-        this.mActive = mActive;
+    @Generated(hash = 1472166301)
+    public VolumeProperty(Long id, @NotNull Long profileId, int type, int value, boolean active) {
+        this.id = id;
+        this.profileId = profileId;
+        this.type = type;
+        this.value = value;
+        this.active = active;
     }
 
     @Generated(hash = 1134627104)
@@ -78,25 +75,25 @@ public class VolumeProperty {
     @Override
     public String toString() {
         return "VolumeProperty{" +
-                "mId=" + mId +
-                ", mProfileId=" + mProfileId +
-                ", mVolumeType=" + mVolumeType +
-                ", mActive=" + mActive +
-                ", mValue=" + mValue +
+                "id=" + id +
+                ", profileId=" + profileId +
+                ", type=" + type +
+                ", active=" + active +
+                ", value=" + value +
                 '}';
     }
 
     /**
-     * Applies the property. If property is mActive, sets the volume to mValue.
+     * Applies the property. If property is active, sets the volume to value.
      *
      * @param pContext Android context.
      */
     public void apply(Context pContext) {
-        if (mActive) {
+        if (active) {
             AudioManager audioManager = (AudioManager) pContext.getSystemService(Context
                     .AUDIO_SERVICE);
-            Log.d(TAG, "Applying volume to stream (" + mActive + ") to " + mValue);
-            audioManager.setStreamVolume(mVolumeType, mValue, 0);
+            Log.d(TAG, "Applying volume to stream (" + active + ") to " + value);
+            audioManager.setStreamVolume(type, value, 0);
         }
     }
 
@@ -136,53 +133,50 @@ public class VolumeProperty {
         myDao.delete(this);
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 490785352)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getVolumePropertyDao() : null;
     }
 
-    public boolean getMActive() {
-        return this.mActive;
+    public boolean getActive() {
+        return this.active;
     }
 
-    public void setMActive(boolean mActive) {
-        this.mActive = mActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public int getMValue() {
-        return this.mValue;
+    public int getValue() {
+        return this.value;
     }
 
-    public void setMValue(int mValue) {
-        this.mValue = mValue;
+    public void setValue(int value) {
+        this.value = value;
     }
 
-    public int getMVolumeType() {
-        return this.mVolumeType;
+    public int getType() {
+        return this.type;
     }
 
-    public void setMVolumeType(int mVolumeType) {
-        this.mVolumeType = mVolumeType;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public Long getMProfileId() {
-        return this.mProfileId;
+    public Long getProfileId() {
+        return this.profileId;
     }
 
-    public void setMProfileId(Long mProfileId) {
-        this.mProfileId = mProfileId;
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 
-    public Long getMId() {
-        return this.mId;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setMId(Long mId) {
-        this.mId = mId;
+    public void setId(Long id) {
+        this.id = id;
     }
-
 }

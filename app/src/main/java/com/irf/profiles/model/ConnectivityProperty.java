@@ -57,16 +57,16 @@ public class ConnectivityProperty {
 
     // Unique identifier.
     @Id(autoincrement = true)
-    private Long mId;
+    private Long id;
     // Profile identifier.
     @NotNull
-    private Long mProfileId;
+    private Long profileId;
     // Type of connectivity property.
-    private int mConnectivityType;
+    private int type;
     // Value of the property.
-    private boolean mEnabled;
+    private boolean enabled;
     // Indicates if the property has to be applied in the profile.
-    private boolean mActive;
+    private boolean active;
     /** Used for active entity operations. */
     @Generated(hash = 79083208)
     private transient ConnectivityPropertyDao myDao;
@@ -74,14 +74,14 @@ public class ConnectivityProperty {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    @Generated(hash = 1927822148)
-    public ConnectivityProperty(Long mId, @NotNull Long mProfileId, int mConnectivityType,
-            boolean mEnabled, boolean mActive) {
-        this.mId = mId;
-        this.mProfileId = mProfileId;
-        this.mConnectivityType = mConnectivityType;
-        this.mEnabled = mEnabled;
-        this.mActive = mActive;
+    @Generated(hash = 1701784891)
+    public ConnectivityProperty(Long id, @NotNull Long profileId, int type, boolean enabled,
+            boolean active) {
+        this.id = id;
+        this.profileId = profileId;
+        this.type = type;
+        this.enabled = enabled;
+        this.active = active;
     }
 
     @Generated(hash = 179088954)
@@ -91,19 +91,19 @@ public class ConnectivityProperty {
     @Override
     public String toString() {
         return "ConnectivityProperty{" +
-                "id=" + mId +
-                ", profileId=" + mProfileId +
-                ", connectivityType=" + mConnectivityType +
-                ", active=" + mActive +
-                ", enabled=" + mEnabled +
+                "id=" + id +
+                ", profileId=" + profileId +
+                ", type=" + type +
+                ", active=" + active +
+                ", enabled=" + enabled +
                 '}';
     }
 
     public void apply(Context pContext) {
-        if (mActive) {
+        if (active) {
             boolean actuallyEnabled;
 
-            switch (getMConnectivityType()) {
+            switch (type) {
                 case CONN_TYPE_BLUETOOTH:
                     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                     if (bluetoothAdapter != null) {
@@ -111,14 +111,14 @@ public class ConnectivityProperty {
                         int state = bluetoothAdapter.getState();
                         if (state == BluetoothAdapter.STATE_OFF || state == BluetoothAdapter
                                 .STATE_TURNING_OFF) {
-                            if (mEnabled) {
+                            if (enabled) {
                                 // If state is off and property is on, enable it.
                                 Log.d(TAG, "Applying connectivity property: enabling BLUETOOTH");
                                 bluetoothAdapter.enable();
                             }
                         } else if (state == BluetoothAdapter.STATE_ON || state ==
                                 BluetoothAdapter.STATE_TURNING_ON) {
-                            if (!mEnabled) {
+                            if (!enabled) {
                                 // If state is on and property is off, disable it.
                                 Log.d(TAG, "Applying connectivity property: disabling BLUETOOTH");
                                 bluetoothAdapter.disable();
@@ -130,9 +130,9 @@ public class ConnectivityProperty {
                     WifiManager wifiManager = (WifiManager) pContext.getSystemService(Context
                             .WIFI_SERVICE);
                     actuallyEnabled = wifiManager.isWifiEnabled();
-                    if(actuallyEnabled != mEnabled){
-                        Log.d(TAG, "Applying connectivity property WiFi: " + mEnabled);
-                        wifiManager.setWifiEnabled(mEnabled);
+                    if(actuallyEnabled != enabled){
+                        Log.d(TAG, "Applying connectivity property WiFi: " + enabled);
+                        wifiManager.setWifiEnabled(enabled);
                     }
                     /*if (!enabled && actuallyEnabled) {
                         // If state is on and property is off, disable it.
@@ -146,10 +146,10 @@ public class ConnectivityProperty {
                     break;
                 case CONN_TYPE_SYNC:
                     actuallyEnabled = ContentResolver.getMasterSyncAutomatically();
-                    if (actuallyEnabled != mEnabled) {
+                    if (actuallyEnabled != enabled) {
                         // If property is different than actual state, change it.
-                        Log.d(TAG, "Applying connectivity property: Sync=" + mEnabled);
-                        ContentResolver.setMasterSyncAutomatically(mEnabled);
+                        Log.d(TAG, "Applying connectivity property: Sync=" + enabled);
+                        ContentResolver.setMasterSyncAutomatically(enabled);
                     }
                     break;
                 case CONN_TYPE_NFC:
@@ -202,43 +202,44 @@ public class ConnectivityProperty {
         myDao = daoSession != null ? daoSession.getConnectivityPropertyDao() : null;
     }
 
-    public boolean getMActive() {
-        return this.mActive;
+    public boolean getActive() {
+        return this.active;
     }
 
-    public void setMActive(boolean mActive) {
-        this.mActive = mActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public boolean getMEnabled() {
-        return this.mEnabled;
+    public boolean getEnabled() {
+        return this.enabled;
     }
 
-    public void setMEnabled(boolean mEnabled) {
-        this.mEnabled = mEnabled;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public int getMConnectivityType() {
-        return this.mConnectivityType;
+    public int getType() {
+        return this.type;
     }
 
-    public void setMConnectivityType(int mConnectivityType) {
-        this.mConnectivityType = mConnectivityType;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public Long getMProfileId() {
-        return this.mProfileId;
+    public Long getProfileId() {
+        return this.profileId;
     }
 
-    public void setMProfileId(Long mProfileId) {
-        this.mProfileId = mProfileId;
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 
-    public Long getMId() {
-        return this.mId;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setMId(Long mId) {
-        this.mId = mId;
+    public void setId(Long id) {
+        this.id = id;
     }
+
 }

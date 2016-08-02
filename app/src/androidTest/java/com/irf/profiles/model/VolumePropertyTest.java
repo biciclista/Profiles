@@ -35,7 +35,7 @@ public class VolumePropertyTest {
 
         // Create property not active, set a different volume and apply.
         VolumeProperty property = new VolumeProperty(1L, 1L, VolumeProperty.VOL_ALARM, 0, false);
-        property.setMValue(alarmVolume == 0 ? 1 : 0);
+        property.setValue(alarmVolume == 0 ? 1 : 0);
         property.apply(mContext);
 
         assertEquals(alarmVolume, mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM));

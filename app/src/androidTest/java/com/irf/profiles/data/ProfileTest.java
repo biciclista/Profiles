@@ -14,9 +14,9 @@ public class ProfileTest extends AbstractDaoTestLongPk<ProfileDao, Profile> {
     @Override
     protected Profile createEntity(Long key) {
         Profile entity = new Profile();
-        entity.setMId(key);
-        entity.setMName("Profile");
-        entity.setMActive(false);
+        entity.setId(key);
+        entity.setName("Profile");
+        entity.setActive(false);
         return entity;
     }
 
