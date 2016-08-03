@@ -34,7 +34,7 @@ public class ConnectivityProperty {
     /**
      * The connectivity property is of type WiFi.
      */
-    public transient static final int CONN_TYPE_WiFi = 2;
+    public transient static final int CONN_TYPE_WIFI = 2;
     /**
      * The connectivity property is of type GPS.
      */
@@ -126,7 +126,7 @@ public class ConnectivityProperty {
                         }
                     }
                     break;
-                case CONN_TYPE_WiFi:
+                case CONN_TYPE_WIFI:
                     WifiManager wifiManager = (WifiManager) pContext.getSystemService(Context
                             .WIFI_SERVICE);
                     actuallyEnabled = wifiManager.isWifiEnabled();
