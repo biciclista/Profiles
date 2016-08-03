@@ -1,5 +1,8 @@
 package com.irf.profiles.model;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.irf.profiles.App;
 import com.irf.profiles.data.ConnectivityPropertyDao;
 import com.irf.profiles.data.DaoSession;
@@ -271,4 +274,21 @@ public class Profile {
         dao.insert(sync);
         connectivityProperties.add(sync);
     }
+
+    /*
+     * Apply this profile to the device.
+     */
+    public void apply(Context context) {
+        // Apply each volume property.
+        for (VolumeProperty property : this.getVolumeProperties()) {
+            Log.d(TAG, "Applying volume property " + property.getType());
+            property.apply(context);
+        }
+        // Apply each connectivity property.
+        for (ConnectivityProperty property : this.getConnectivityProperties()) {
+            Log.d(TAG, "Applying connectivity property " + property.getType());
+            property.apply(context);
+        }
+    }
+
 }
