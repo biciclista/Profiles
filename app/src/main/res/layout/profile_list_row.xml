@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="?android:attr/activatedBackgroundIndicator"
-              android:paddingLeft="8dp"
-              android:paddingTop="8dp"
-              android:paddingRight="8dp"
-              android:paddingBottom="8dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lytProfile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp">
 
     <ImageView
+        android:id="@+id/imgSelected"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgSelected"/>
+        android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/lblProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/lblProfile"
-        android:layout_weight="1"/>
+        android:clickable="false"/>
 
     <ImageView
+        android:id="@+id/imgConfigure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgConfigure"
-        android:src="@drawable/settings"/>
+        android:src="@drawable/settings"
+        android:layout_gravity="center_vertical"/>
 
 </LinearLayout>

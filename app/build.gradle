@@ -68,6 +68,9 @@ dependencies {
     compile 'com.android.support:design:24.+'
 }
 
+dependencies {
+    compile 'com.android.support:support-v4:24.+'
+}
 greendao {
     schemaVersion 5
     daoPackage 'com.irf.profiles.data'

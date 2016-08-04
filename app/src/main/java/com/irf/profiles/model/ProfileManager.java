@@ -104,4 +104,14 @@ public class ProfileManager {
         return profileList.containsKey(name);
     }
 
+    /**
+     * Gets a profile given its identifier.
+     *
+     * @param id Identifier of the profile to get.
+     * @return Profile with given identifier or null if a profile doesn't exist with that
+     * identifier.
+     */
+    public Profile getProfile(long id) {
+        return profileList.get(profileNames.get(id));
+    }
 }

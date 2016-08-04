@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:choiceMode="singleChoice"/>
+        android:choiceMode="none"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

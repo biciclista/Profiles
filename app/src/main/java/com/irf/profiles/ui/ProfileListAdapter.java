@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.irf.profiles.R;
@@ -26,6 +27,8 @@ public class ProfileListAdapter extends ArrayAdapter {
         Profile profile = (Profile) this.getItem(position);
         View view = super.getView(position, convertView, parent);
 
+        LinearLayout lytProfile = (LinearLayout) view.findViewById(R.id.lytProfile);
+
         TextView lblProfile = (TextView) view.findViewById(R.id.lblProfile);
         lblProfile.setText(profile.getName());
         ImageView imgSelected = (ImageView) view.findViewById(R.id.imgSelected);
@@ -34,6 +37,16 @@ public class ProfileListAdapter extends ArrayAdapter {
         } else {
             imgSelected.setImageResource(R.drawable.empty);
         }
+
+        ImageView imgConfigure = (ImageView) view.findViewById(R.id.imgConfigure);
+
+        imgConfigure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return view;
     }

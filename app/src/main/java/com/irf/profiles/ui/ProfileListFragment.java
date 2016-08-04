@@ -56,7 +56,7 @@ public class ProfileListFragment extends ListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setHasOptionsMenu(true);
+        //this.setHasOptionsMenu(true);
         mProfileManager = ProfileManager.getInstance();
     }
 
@@ -90,11 +90,10 @@ public class ProfileListFragment extends ListFragment {
         mAdapter = new ProfileListAdapter(this.getActivity(), mProfileList);
 
         // Assign adapter to ListView.
-        Log.d(TAG, "Assigning adapter");
+        Log.d(TAG, "Asigning adapter");
         this.setListAdapter(mAdapter);
 
-
-
+        // Floating button.
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
