@@ -71,4 +71,37 @@ public class ProfileManager {
         Log.d(TAG, "Actual profile list = " + profileList);
         return profileList.values().toArray(new Profile[profileList.size()]);
     }
+
+    /**
+     * Adds a new profile.
+     *
+     * @param name Name of the new profile.
+     * @return New created profile.
+     */
+    public Profile addProfile(String name) {
+        Profile profile = null;
+        if (!existsProfile(name)) {
+            // Create new profile.
+            profile = new Profile(name);
+            // Add profile to list.
+            profileList.put(name, profile);
+            profileNames.put(profile.getId(), name);
+        } else {
+            // Duplicated name.
+            throw new IllegalArgumentException("Duplicated profile name: " + name);
+        }
+
+        return profile;
+    }
+
+    /**
+     * Checks if exist a profile with the given name.
+     *
+     * @param name Name of the profile to check.
+     * @return True if exists a profile with the given name and false otherwise.
+     */
+    public boolean existsProfile(String name) {
+        return profileList.containsKey(name);
+    }
+
 }

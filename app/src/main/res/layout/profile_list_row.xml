@@ -9,6 +9,11 @@
               android:paddingRight="8dp"
               android:paddingBottom="8dp">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgSelected"/>
+
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,6 +24,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgSelected"/>
+        android:id="@+id/imgConfigure"
+        android:src="@drawable/settings"/>
 
 </LinearLayout>

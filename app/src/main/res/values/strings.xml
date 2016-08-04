@@ -1,5 +1,38 @@
 <resources>
-    <string name="app_name">Profiles</string>
-    <string name="title_activity_profile_list">ProfileListActivity</string>
+    <string name="title_activity_profile_list">Profiles</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Strings for profile list. -->
+    <string name="app_name">Profiles</string>
+    <string name="profile_list_add">Add profile</string>
+    <string name="profile_list_delete">Delete profile</string>
+    <string name="profile_list_edit">Edit profile</string>
+
+    <!-- String for add profile dialog. -->
+    <string name="add_profile_title">New profile</string>
+    <string name="add_profile_name">Profile name:</string>
+
+    <!-- Strings for profile settings. -->
+    <string name="title_activity_edit_profile">Edit Profile</string>
+    <string name="profile_settings_volume_category_name">Volume properties</string>
+    <string name="volume_ring_name">Ring</string>
+    <string name="volume_notification_name">Notifications</string>
+    <string name="volume_alarm_name">Alarm</string>
+    <string name="volume_music_name">Music</string>
+    <string name="volume_system_name">System</string>
+    <string name="volume_resume">Set to</string>
+    <string name="volume_mode_name">Sound mode</string>
+    <string name="profile_settings_connectivity_category_name">Connectivity properties</string>
+    <string name="connectivity_bluetooth_name">Bluetooth</string>
+    <string name="connectivity_wifi_name">WiFi</string>
+    <string name="connectivity_mobiledata_name">Mobile data</string>
+    <string name="connectivity_nfc_name">NFC</string>
+    <string name="connectivity_sync_name">Sync</string>
+    <string name="connectivity_gps_name">GPS</string>
+
+    <!-- Strings for widget. -->
+    <string name="appwidget_text">Profile</string>
+    <string name="add_widget">Add widget</string>
+
+
 </resources>

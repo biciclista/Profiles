@@ -32,7 +32,7 @@ public class ProfileListAdapter extends ArrayAdapter {
         if (profile.getActive()) {
             imgSelected.setImageResource(R.drawable.check);
         } else {
-            imgSelected.setImageResource(0);
+            imgSelected.setImageResource(R.drawable.empty);
         }
 
         return view;
