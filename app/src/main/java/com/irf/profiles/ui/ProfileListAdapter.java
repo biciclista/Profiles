@@ -30,9 +30,9 @@ public class ProfileListAdapter extends ArrayAdapter {
         lblProfile.setText(profile.getName());
         ImageView imgSelected = (ImageView) view.findViewById(R.id.imgSelected);
         if (profile.getActive()) {
-            imgSelected.setImageResource(android.support.design.R.drawable.abc_btn_check_to_on_mtrl_015);
+            imgSelected.setImageResource(R.drawable.check);
         } else {
-            imgSelected.setImageResource(android.support.design.R.drawable.abc_btn_check_to_on_mtrl_000);
+            imgSelected.setImageResource(0);
         }
 
         return view;
