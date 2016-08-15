@@ -1,24 +1,20 @@
 package com.irf.profiles.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ActionMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.irf.profiles.R;
@@ -35,19 +31,16 @@ public class ProfileListFragment extends ListFragment {
     // TAG for logging.
     private final static String TAG = "ProfileListFragment";
     // Constants for stored data.
-    private final static String PROFILE_LIST = "ProfileList";
-    private final static String IS_IN_ACTION_MODE = "IsInActionMode";
     public final static String PROFILE_ID = "ProfileId";
 
     // Profile manager.
-    private ProfileManager mProfileManager;
+    private ProfileManager profileManager;
     // Profile list.
-    private ArrayList<Profile> mProfileList;
+    private ArrayList<Profile> profileList;
     // Adapter.
-    private ProfileListAdapter mAdapter;
-    // Action mode.
-    private ActionMode mActionMode = null;
-    private boolean isInActionMode = false;
+    private ProfileListAdapter adapter;
+
+    private OnConfigureProfileListener listener;
 
     public ProfileListFragment() {
     }
@@ -57,7 +50,7 @@ public class ProfileListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         //this.setHasOptionsMenu(true);
-        mProfileManager = ProfileManager.getInstance();
+        profileManager = ProfileManager.getInstance();
     }
 
     @Override
@@ -71,29 +64,24 @@ public class ProfileListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         // Get existing profiles.
-        if (savedInstanceState == null) {
-            // Get profiles.
-            Log.d(TAG, "Getting task list from storage");
-            //mProfileList = new ArrayList<>(Arrays.asList(ProfileManager.getProfileList
-            // (getActivity())));
-        } else {
-            // Get tasks from saved instance.
-            Log.d(TAG, "Generating task list from saved instance");
-            //mProfileList = pSavedInstanceState.getParcelableArrayList(PROFILE_LIST);
-            isInActionMode = savedInstanceState.getBoolean(IS_IN_ACTION_MODE);
-        }
-
-        mProfileList = new ArrayList<>(Arrays.asList(mProfileManager.getProfileList()));
+        profileList = new ArrayList<>(Arrays.asList(profileManager.getProfileList()));
 
         // Create adapter.
-        Log.d(TAG, "Creating adapter with " + mProfileList.size() + " items");
-        mAdapter = new ProfileListAdapter(this.getActivity(), mProfileList);
+        Log.d(TAG, "Creating adapter with " + profileList.size() + " items");
+        adapter = new ProfileListAdapter(this.getActivity(), profileList);
+        // Set the listener for configure profile click.
+        adapter.setOnConfigureClickListener(new ProfileListAdapter.OnConfigureClickListener() {
+            @Override
+            public void onConfigureClick(long id) {
+                listener.OnConfigureProfile(id);
+            }
+        });
 
         // Assign adapter to ListView.
         Log.d(TAG, "Asigning adapter");
-        this.setListAdapter(mAdapter);
+        this.setListAdapter(adapter);
 
-        // Floating button.
+        // Floating button for adding a new profile.
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +105,8 @@ public class ProfileListFragment extends ListFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String name = txtName.getText().toString().trim();
                 try {
-                    Profile profile = mProfileManager.addProfile(name);
-                    mAdapter.add(profile);
+                    Profile profile = profileManager.addProfile(name);
+                    adapter.add(profile);
                 } catch (IllegalArgumentException e) {
                     Toast.makeText(getActivity(),
                             "There is a profile with this name", Toast.LENGTH_LONG).show();
@@ -135,8 +123,6 @@ public class ProfileListFragment extends ListFragment {
         ok.setEnabled(false);
 
         txtName.addTextChangedListener(new TextWatcher() {
-            private static final String TAG = "TextWatcher";
-
             @Override
             public void beforeTextChanged(CharSequence pCharSequence, int i, int i2, int i3) {
             }
@@ -153,7 +139,7 @@ public class ProfileListFragment extends ListFragment {
                 if (text.equals("")) {
                     txtName.setError("Profile name can't be empty");
                     ok.setEnabled(false);
-                } else if (mProfileManager.existsProfile(text)) {
+                } else if (profileManager.existsProfile(text)) {
                     txtName.setError("Duplicated profile name");
                     ok.setEnabled(false);
                 } else {
@@ -161,6 +147,28 @@ public class ProfileListFragment extends ListFragment {
                 }
             }
         });
+    }
+
+    /**
+     * Interface for listeners for configuring a profile.
+     */
+    public interface OnConfigureProfileListener {
+        /**
+         * Called when user wants to configure a profile.
+         * @param id identifier of the profile to configure.
+         */
+        void OnConfigureProfile(long id);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnConfigureProfileListener) {
+            listener = (OnConfigureProfileListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnConfigureProfileListener");
+        }
     }
 
 }

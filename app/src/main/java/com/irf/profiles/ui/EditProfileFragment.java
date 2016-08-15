@@ -91,7 +91,7 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    @Override
+   /* @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -100,7 +100,7 @@ public class EditProfileFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {
@@ -137,4 +137,6 @@ public class EditProfileFragment extends Fragment {
             layout.addView(lytProperty);
         }
     }
+
+
 }

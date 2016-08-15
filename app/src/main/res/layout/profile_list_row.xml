@@ -8,26 +8,33 @@
     android:paddingBottom="8dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:focusable="true"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/imgSelected"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/profile_row_selected_description"/>
 
     <TextView
         android:id="@+id/lblProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:clickable="false"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <ImageView
         android:id="@+id/imgConfigure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/settings"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/profile_row_configure_description"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"/>
 
 </LinearLayout>

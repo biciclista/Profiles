@@ -8,6 +8,10 @@
     <string name="profile_list_delete">Delete profile</string>
     <string name="profile_list_edit">Edit profile</string>
 
+    <!-- Strings of profile row. -->
+    <string name="profile_row_selected_description">If is the selected profile, a check is displayed</string>
+    <string name="profile_row_configure_description">Click for configure the profile</string>
+
     <!-- String for add profile dialog. -->
     <string name="add_profile_title">New profile</string>
     <string name="add_profile_name">Profile name:</string>
